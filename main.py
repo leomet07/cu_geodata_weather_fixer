@@ -1,6 +1,7 @@
 from herbie import Herbie
 from herbie.toolbox import EasyMap, pc
 from herbie import paint
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
@@ -13,6 +14,12 @@ H = Herbie(
 )
 
 ds = H.xarray("TMP:2 m above")
+
+
+def fetch_temperature(datetime: datetime, lat: float, long: float) -> float:
+    # TODO: Implement this
+    return -1
+
 
 ax = EasyMap("50m", crs=ds.herbie.crs, figsize=[10, 8]).BORDERS().STATES().ax
 
