@@ -1,8 +1,8 @@
 # To create and activate this environment:
 #   conda env create -f environment.yml
-#   conda activate lake-temp
+#   conda activate herbie-hrrr
 
-name: lake-temp
+name: herbie-hrrr
 channels:
   - conda-forge
 dependencies:
