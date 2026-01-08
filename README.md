@@ -1,7 +1,21 @@
 # CU Geodata Weather Forecast Fixer
 # Project details TBD
 
-## Setup
+## Conda Setup
+
+1. Setup Venv
+
+```bash
+conda env create -f environment.yml
+```
+
+2. Activate Venv
+
+```bash
+conda activate herbie-hrrr
+```
+
+## Pip Setup (currently not used)
 
 1. Setup Venv
 
