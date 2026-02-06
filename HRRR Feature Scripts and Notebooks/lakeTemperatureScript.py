@@ -94,27 +94,25 @@ def avgDeltaTemp(lake_name="Cayuga Lake", dateTime=None, spacing=0.02):
         "longitude": inLons,
     })
     
-    # Create Herbie object
-    H = Herbie(
-        dateTime,
-        model="hrrr",
-        product="sfc",
-        fxx=0,
+    Hsfc = Herbie(
+        dateTime, 
+        model = "hrrr",
+        product = "sfc",
+        fxx = 0,
         save_dir=Path("herbie_cache"),
         overwrite=False
     )
-    
-    # Define variable regex
-    var_regex = r":TMP:surface|:TMP:850 mb"
-    
-    # Download and load the data as xarray
-    print(f"Fetching data for {len(interior_points)} points in {lake_name}...")
-    H.download(var_regex, verbose=False)
-    dMixed = H.xarray(var_regex, remove_grib=False)
-    
-    # Separate surface and 850mb datasets
-    d850mb = next(ds for ds in dMixed if "isobaricInhPa" in ds.coords)
-    dSurface = next(ds for ds in dMixed if "surface" in ds.coords)
+    Hprs = Herbie(
+        dateTime, 
+        model = "hrrr",
+        product = "prs",
+        fxx = 0,
+        save_dir=Path("herbie_cache"),
+        overwrite=False
+    )
+    #Only sample the fields we need
+    dSurface = Hsfc.xarray(r":TMP:surface", remove_grib=True, verbose=False)
+    d850mb = Hprs.xarray(r":TMP:850 mb", remove_grib=True, verbose=False)
     
     # Use pick_points on the xarray datasets
     surface_data = dSurface.herbie.pick_points(points)
