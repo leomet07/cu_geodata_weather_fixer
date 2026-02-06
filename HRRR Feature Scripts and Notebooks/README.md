@@ -1,7 +1,9 @@
-### Temperature Difference Averaged For NY Lakes
+### Scripts for pulling data on NY Lakes
 
-This folder contains files for determining the temperature difference between the surface temperature of lakes and the temperature at 850mb. On a high level, the script requests the user to input a lake and timeframe, and the script then samples temperatures from the lake uniformly, finding the difference in temperature at each (latitude, longitude), and averaging them.
+As of now, this folder contains files for determining temperature difference and wind shear direction difference between the surface of a chosen lake and at 850mb. On a high level, the script requests the user to input a lake and the timeframe, and then the script samples data from the lake uniformly, then returns the averaged data for the timeframe and lake.
 
-To gain a step-by-step understanding of the tools used for this, consult the notebook "lakeTemperatureNY.ipynb"
+The step-by-step explanations of the tools used for each script are in each of the corresponding notebooks. The first and best-documented notebook is "lakeTemperatureNY.ipynb"; other notebooks reuse tools from it and have less explanation.
 
-To run the all-in-one script, follow the directions for setting up the environment in "environment.yml", and then run "lakeTemperatureScript.py"
+To run the all-in-one scripts, follow the directions for setting up the environment in "environment.yml", and then run "lakeTemperatureScript.py"
+
+Further updates with new scripts and new notebooks will come later.
