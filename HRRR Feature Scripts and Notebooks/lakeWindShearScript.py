@@ -97,21 +97,26 @@ def surfaceAnd850(dateTime=None):
       - 850 mb: UGRD/VGRD at 850 mb (isobaricInhPa)
     """
     dateTime = herbieDateTime(dateTime)
-    H = Herbie(
-        dateTime,
-        model="hrrr",
-        product="sfc",
-        fxx=0,
+    Hsfc = Herbie(
+        dateTime, 
+        model = "hrrr",
+        product = "sfc",
+        fxx = 0,
         save_dir=Path("herbie_cache"),
-        overwrite=False,
+        overwrite=False
     )
-
-    var_regex = r"[U|V]GRD:10 m|[U|V]GRD:850 mb"
-    H.download(var_regex, verbose=False)
-
-    dMixed = H.xarray(var_regex, remove_grib=True)
-    d850mb = next(ds for ds in dMixed if "isobaricInhPa" in ds.coords)
-    dSurface = next(ds for ds in dMixed if "heightAboveGround" in ds.coords)
+    Hprs = Herbie(
+        dateTime, 
+        model = "hrrr",
+        product = "prs",
+        fxx = 0,
+        save_dir=Path("herbie_cache"),
+        overwrite=False
+    )
+    #Only sample the fields we need
+    #Use Regex to filter for the temperature field at the surface and 850mb
+    d850mb = Hprs.xarray(search=r"[U|V]GRD:850 mb", remove_grib=True)
+    dSurface = Hsfc.xarray(search=r"[U|V]GRD:10 m", remove_grib=True)
     return dSurface, d850mb
 
 
